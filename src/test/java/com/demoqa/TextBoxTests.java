@@ -4,8 +4,10 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.by;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 
 public class TextBoxTests {
 
@@ -17,9 +19,20 @@ public class TextBoxTests {
     }
 
     @Test
-    void fillTormTest() {
-        open("/text-box");
-        $("[id=userName]").setValue("Egor");
+    void fillFormTest() {
+        open("/automation-practice-form");
+        $("#firstName").setValue("Ivan");
+        $("#lastName").setValue("Ivanov");
+        $("#userEmail").setValue("ivanivanov@gmail.com");
+        $("#genterWrapper").$(byText("Male")).click();
+        $("#userNumber").setValue("8800555353");
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOption("February");
+        $(".react-datepicker__year-select").selectOption("1971");
+        $(".react-datepicker__day--019").click();
+      //  $("#submit").click();
+
 
     }
+
 }
