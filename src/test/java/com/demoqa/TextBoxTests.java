@@ -30,6 +30,8 @@ public class TextBoxTests {
         $(".react-datepicker__month-select").selectOption("February");
         $(".react-datepicker__year-select").selectOption("1971");
         $(".react-datepicker__day--019").click();
+        $("#subjectsInput").setValue("Computer Science").pressEnter();
+        $("#hobbiesWrapper").$(byText("Sports")).click();
       //  $("#submit").click();
 
 
