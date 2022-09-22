@@ -1,7 +1,8 @@
-package com.demoqa;
+package com.demoqa.tests;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.demoqa.pages.RegistrationFormPage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +11,9 @@ import static com.codeborne.selenide.Selectors.by;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TextBoxTests {
+public class TextBoxTestWithPageObjectsTest {
 
+    RegistrationFormPage registrationFormPage = new RegistrationFormPage();
     @BeforeAll
     static void setUp() {
         Configuration.baseUrl = "https://demoqa.com";
@@ -21,12 +23,13 @@ public class TextBoxTests {
 
     @Test
     void fillFormTest() {
-        open("/automation-practice-form");
-        $("#firstName").setValue("Ivan");
-        $("#lastName").setValue("Ivanov");
-        $("#userEmail").setValue("ivanivanov@gmail.com");
-        $("#genterWrapper").$(byText("Male")).click();
-        $("#userNumber").setValue("8800555353");
+        registrationFormPage.openPage()
+                .setFirstName("Ivan")
+                .setLastName("Ivanov")
+                .setEmail("ivanivanov@gmail.com")
+                .setGender("Male")
+                .setNumber("8800555353");
+
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("February");
         $(".react-datepicker__year-select").selectOption("1971");
