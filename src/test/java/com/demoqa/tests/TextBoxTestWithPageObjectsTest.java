@@ -28,34 +28,25 @@ public class TextBoxTestWithPageObjectsTest {
                 .setLastName("Ivanov")
                 .setEmail("ivanivanov@gmail.com")
                 .setGender("Male")
-                .setNumber("8800555353");
+                .setNumber("8800555353")
+                .setBirthDate("19", "February", "1971")
+                .setSubjects("Computer Science")
+                .setHobbies("Sports")
+                .setPicture("image.jpg")
+                .setAddress("Calgary", "NCR", "Delhi")
+                .clickSubmit();
 
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("February");
-        $(".react-datepicker__year-select").selectOption("1971");
-        $(".react-datepicker__day--019").click();
-        $("#subjectsInput").setValue("Computer Science").pressEnter();
-        $("#hobbiesWrapper").$(byText("Sports")).click();
-        $("#uploadPicture").uploadFromClasspath("image.jpg");
-        $("#currentAddress").setValue("Calgary");
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
-        $("#submit").click();
-
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $$(".table-responsive").findBy(text("Student Name")).shouldHave(text("Ivan Ivanov"));
-        $$(".table-responsive").findBy(text("Student Email")).shouldHave(text("ivanivanov@gmail.com"));
-        $$(".table-responsive").findBy(text("Gender")).shouldHave(text("Male"));
-        $$(".table-responsive").findBy(text("Mobile")).shouldHave(text("8800555353"));
-        $$(".table-responsive").findBy(text("Date of Birth")).shouldHave(text("19 February,1971"));
-        $$(".table-responsive").findBy(text("Subjects")).shouldHave(text("Computer Science"));
-        $$(".table-responsive").findBy(text("Hobbies")).shouldHave(text("Sports"));
-        $$(".table-responsive").findBy(text("Picture")).shouldHave(text("image.jpg"));
-        $$(".table-responsive").findBy(text("Address")).shouldHave(text("Calgary"));
-        $$(".table-responsive").findBy(text("State and City")).shouldHave(text("NCR Delhi"));
-
+        registrationFormPage.checkResultsTableVisible()
+                        .checkResult("Student Name", "Ivan Ivanov")
+                        .checkResult("Student Email", "ivanivanov@gmail.com")
+                        .checkResult("Gender", "Male")
+                        .checkResult("Mobile", "8800555353")
+                        .checkResult("Date of Birth", "19 February,1971")
+                        .checkResult("Subjects", "Computer Science")
+                        .checkResult("Hobbies", "Sports")
+                        .checkResult("Picture", "image.jpg")
+                        .checkResult("Address", "Calgary")
+                        .checkResult("State and City", "NCR Delhi");
 
     }
 

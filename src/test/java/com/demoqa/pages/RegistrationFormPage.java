@@ -1,24 +1,29 @@
 package com.demoqa.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import com.demoqa.pages.components.AddressComponent;
+import com.demoqa.pages.components.CalendarComponent;
+import com.demoqa.pages.components.ResultTableComponent;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class RegistrationFormPage {
 
-    // Elements
+    private final static String TITLE_TEXT = "Student Registration Form";
+    private CalendarComponent calendarComponent = new CalendarComponent();
+    private ResultTableComponent resultsModal = new ResultTableComponent();
 
-    private SelenideElement firstNameInput = $("#firstName");
-
-
-    // Actions
+    private AddressComponent adressComponent = new AddressComponent();
+    private SelenideElement
+            firstNameInput = $("#firstName"),
+            lastNameInput = $("#lastName"),
+            emailInput = $("#userEmail");
 
     public RegistrationFormPage openPage() {
         open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+        $(".practice-form-wrapper").shouldHave(text(TITLE_TEXT));
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
 
@@ -31,20 +36,20 @@ public class RegistrationFormPage {
         return this;
     }
 
-    public RegistrationFormPage clearFirstName(String value) {
+    public RegistrationFormPage clearFirstName() {
         firstNameInput.clear();
 
         return this;
     }
 
     public RegistrationFormPage setLastName(String value) {
-        $("#lastName").setValue(value);
+        lastNameInput.setValue(value);
 
         return this;
     }
 
     public RegistrationFormPage setEmail(String value) {
-        $("#userEmail").setValue(value);
+        emailInput.setValue(value);
 
         return this;
     }
@@ -60,11 +65,52 @@ public class RegistrationFormPage {
 
         return this;
     }
+
     public RegistrationFormPage setBirthDate(String day, String month, String year) {
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption(month);
-        $(".react-datepicker__year-select").selectOption(year);
-        $(".react-datepicker__day--019" + day + "not(.react-datepicker__day--outside-month)").click();
+        calendarComponent.setDate(day, month, year);
+
+        return this;
+    }
+
+    public RegistrationFormPage setSubjects(String value) {
+        $("#subjectsInput").setValue(value).pressEnter();
+
+        return this;
+    }
+
+    public RegistrationFormPage setHobbies(String value) {
+        $("#hobbiesWrapper").$(byText(value)).click();
+
+        return this;
+    }
+
+    public RegistrationFormPage setPicture(String value) {
+        $("#uploadPicture").uploadFromClasspath(value);
+
+        return this;
+    }
+
+    public RegistrationFormPage setAddress(String address, String state, String city) {
+        adressComponent.setDate(address, state, city);
+
+        return this;
+    }
+
+    public RegistrationFormPage clickSubmit () {
+        $("#submit").click();
+
+        return this;
+    }
+
+    public RegistrationFormPage checkResultsTableVisible() {
+        resultsModal.checkVisible();
+
+        return this;
+    }
+
+    public RegistrationFormPage checkResult(String key, String value) {
+        resultsModal.checkResult(key, value);
 
         return this;
     }
