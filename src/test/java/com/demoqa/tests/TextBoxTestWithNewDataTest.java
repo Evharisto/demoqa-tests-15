@@ -1,14 +1,7 @@
 package com.demoqa.tests;
 
-import com.codeborne.selenide.Configuration;
 import com.demoqa.pages.RegistrationFormPage;
-import com.demoqa.utils.RandomUtils;
-import com.github.javafaker.Faker;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.Locale;
-
 
 public class TextBoxTestWithNewDataTest extends TestBase {
 
